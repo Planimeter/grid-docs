@@ -4,9 +4,9 @@
 --
 --============================================================================--
 
-dofile( "src/scripts/docs/sidebar.lua" )
-dofile( "src/scripts/docs/sections.lua" )
--- dofile( "src/scripts/docs/articles.lua" )
+dofile( "scripts/docs/sidebar.lua" )
+dofile( "scripts/docs/sections.lua" )
+-- dofile( "scripts/docs/articles.lua" )
 
-dofile( "src/scripts/docs/concommand.lua" )
-dofile( "src/scripts/docs/convar.lua" )
+dofile( "scripts/docs/concommand.lua" )
+dofile( "scripts/docs/convar.lua" )
