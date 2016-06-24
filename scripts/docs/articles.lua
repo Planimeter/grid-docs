@@ -22,15 +22,6 @@ local function r_header( header )
 	return concat( md, "\r\n" )
 end
 
-local function getFirstLuaFunction( t )
-	for _, v in pairs( t ) do
-		if ( type( v ) == "function" and
-		     not find( tostring( v ), "builtin#%w+" ) ) then
-			return v
-		end
-	end
-end
-
 local function r_header2( header )
 	local md = {}
 	insert( md, header )
@@ -39,80 +30,67 @@ local function r_header2( header )
 	return concat( md, "\r\n" )
 end
 
-local function isPanel( module )
-	local v = docs.findModule( module )
-	return typeof( v, "panel" ) or v == gui.panel
-end
-
-local function r_constructor( article )
-	local md = {}
-	insert( md, r_header2( "Constructor" ) )
-	local modname = isPanel( article ) and "gui" or article
-	insert(
-		md,
-		"* [`" .. ( modname == "gui" and "gui." or "" ) .. article .. "()`]" ..
-		"(" .. modname .. "." .. article .. ")"
-	)
-	insert( md, "" )
-	return concat( md, "\r\n" )
-end
-
-local function r_methods( article, methods, separator )
-	local md = {}
+local function writeMethods( section, methods, separator )
 	for _, method in ipairs( methods ) do
+		local md = {}
+		local header = section .. separator .. method
+		local constructor = section == method
+		if ( constructor ) then
+			header = section
+		end
+		insert( md, r_header( header .. "()" ) )
+
+		insert( md, r_header2( "Parameters" ) )
+
 		insert(
 			md,
-			"* [`" .. article .. separator .. method .. "()`]" ..
-			"(" .. article .. "." .. method .. ")"
+			"* [`" .. section .. separator .. method .. "()`]" ..
+			"(" .. section .. "." .. method .. ")"
 		)
+
+		insert( md, "" )
+		md = concat( md, "\r\n" )
+		filesystem.write( "docs/" .. section .. "." method .. ".md", md )
 	end
-	insert( md, "" )
-	return concat( md, "\r\n" )
 end
 
-local function writeArticle( article )
-	local md = {}
-	insert( md, r_header( article ) )
-
-	local v = docs.findModule( article )
+local function writeArticles( section )
+	local v = docs.findModule( section )
 	if ( v.__type ) then
+		-- Class Methods
 		if ( #docs.getClassMethods( v ) > 0 ) then
-			insert( md, r_header2( "Class Methods" ) )
-			insert( md, r_methods( article, docs.getClassMethods( v ), "." ) )
+			writeMethods( section, docs.getClassMethods( v ), "." ) )
 		end
 
-		insert( md, r_constructor( article ) )
+		r_constructor( section )
 
+		-- Methods
 		if ( #docs.getMethods( v ) > 0 ) then
-			insert( md, r_header2( "Methods" ) )
-			insert( md, r_methods( article, docs.getMethods( v ), ":" ) )
+			writeMethods( section, docs.getMethods( v ), ":" ) )
 		end
 
+		-- Callbacks
 		if ( #docs.getCallbacks( v ) > 0 ) then
-			insert( md, r_header2( "Callbacks" ) )
-			insert( md, r_methods( article, docs.getCallbacks( v ), ":" ) )
+			writeMethods( section, docs.getCallbacks( v ), ":" ) )
 		end
 	else
+		-- Methods
 		if ( #docs.getAllMethods( v ) > 0 ) then
-			insert( md, r_header2( "Methods" ) )
-			insert( md, r_methods( article, docs.getAllMethods( v ), "." ) )
+			writeMethods( section, docs.getAllMethods( v ), "." ) )
 		end
 
+		-- Callbacks
 		if ( #docs.getCallbacks( v ) > 0 ) then
-			insert( md, r_header2( "Callbacks" ) )
-			insert( md, r_methods( article, docs.getCallbacks( v ), "." ) )
+			writeMethods( section, docs.getCallbacks( v ), "." ) )
 		end
 	end
-
-	md = concat( md, "\r\n" )
-	filesystem.write( "docs/" .. article .. ".md", md )
 end
 
-local articles = {}
-table.append( articles, docs.getClasses() )
-table.append( articles, docs.getInterfacesAndLibraries() )
-table.append( articles, docs.getPanels() )
+local sections = {}
+table.append( sections, docs.getClasses() )
+table.append( sections, docs.getInterfacesAndLibraries() )
+table.append( sections, docs.getPanels() )
 
-for _, article in ipairs( articles ) do
-	writeArticle( article )
+for _, section in ipairs( sections ) do
+	writeArticles( section )
 end
