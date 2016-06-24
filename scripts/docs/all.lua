@@ -6,7 +6,7 @@
 
 dofile( "scripts/docs/sidebar.lua" )
 dofile( "scripts/docs/sections.lua" )
--- dofile( "scripts/docs/articles.lua" )
+dofile( "scripts/docs/articles.lua" )
 
 dofile( "scripts/docs/concommand.lua" )
 dofile( "scripts/docs/convar.lua" )
