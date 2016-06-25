@@ -76,6 +76,9 @@ local function writeMethods( section, methods, separator )
 		-- Header
 		local md = {}
 		local signature = section .. separator .. method
+		if ( docs.isGameInterface( section ) ) then
+			signature = method
+		end
 		local constructor = section == method
 		if ( constructor ) then
 			signature = section
@@ -98,19 +101,21 @@ local function writeMethods( section, methods, separator )
 		insert( md, "" )
 
 		-- Usage
-		insert( md, r_header2( "Usage" ) )
 		require( "engine.shared.dblib" )
 		local params, isvararg = debug.getparameters( v[ method ] )
 		if ( params[ 1 ] == "self" ) then
 			table.remove( params, 1 )
 		end
-		local args = ( #params > 0 and "( " ..
-			concat( params, ", " ) .. ( isvararg and ", ..." or "" ) ..
-		" )" or "()" )
-		insert( md, "```lua\r\n" ..
-			signature .. args .. "\r\n" ..
-		"```" )
-		insert( md, "" )
+		if ( not docs.isGameInterface( section ) ) then
+			insert( md, r_header2( "Usage" ) )
+			local args = ( #params > 0 and "( " ..
+				concat( params, ", " ) .. ( isvararg and ", ..." or "" ) ..
+			" )" or "()" )
+			insert( md, "```lua\r\n" ..
+				signature .. args .. "\r\n" ..
+			"```" )
+			insert( md, "" )
+		end
 
 		-- Parameters
 		local parameters = {}
@@ -125,18 +130,22 @@ local function writeMethods( section, methods, separator )
 			insert( md, r_header2( "Parameters" ) )
 			insert( md, r_table( parameters ) )
 		end
-		insert( md, "" )
 
 		-- Stub
 		-- local baseHref = "https://github.com/Planimeter/grid-sdk/wiki/"
 		insert(
 			md,
-			"_This article is a stub. You can help Planimeter by expanding it._"
+			"*This article is a stub. You can help Planimeter by expanding it.*"
 		)
 		insert( md, "" )
 
+		local filename = section .. "." .. method
+		if ( docs.isGameInterface( section ) ) then
+			filename = method
+		end
+
 		md = concat( md, "\r\n" )
-		filesystem.write( "docs/" .. section .. "." .. method .. ".md", md )
+		filesystem.write( "docs/" .. filename .. ".md", md )
 	end
 end
 
@@ -176,6 +185,7 @@ local function writeArticles( section )
 end
 
 local sections = {}
+table.append( sections, { "game" } )
 table.append( sections, docs.getClasses() )
 table.append( sections, docs.getInterfacesAndLibraries() )
 table.append( sections, docs.getPanels() )

@@ -149,12 +149,6 @@ function getClasses()
 	return classes
 end
 
-function isClassMethod( f )
-	require( "engine.shared.dblib" )
-	local parameters = debug.getparameters( f )
-	return not parameters[ 1 ] or parameters[ 1 ] ~= "self"
-end
-
 function getClassMethods( class )
 	local classMethods = {}
 	local methods = getAllMethods( class )
@@ -173,10 +167,10 @@ function getInterfacesAndLibraries()
 		"serverengine",
 		"networkclient",
 		"networkserver",
-		"gameclient",
-		"gameserver",
+		-- "gameclient",
+		-- "gameserver",
 		"docs",
-		"game"
+		-- "game"
 	}
 	for k, v in pairs( _G ) do
 		if ( rawtype( v ) == "table" and
@@ -218,11 +212,6 @@ function getMethods( t )
 	return methods
 end
 
-function isPanel( modname )
-	local v = findModule( modname )
-	return typeof( v, "panel" ) or v == gui.panel
-end
-
 function getPanels()
 	local panels = {}
 	local blacklist = {
@@ -244,4 +233,25 @@ function getPanels()
 	end
 	table.sort( panels )
 	return panels
+end
+
+function isClassMethod( f )
+	require( "engine.shared.dblib" )
+	local parameters = debug.getparameters( f )
+	return not parameters[ 1 ] or parameters[ 1 ] ~= "self"
+end
+
+local interfaces = {
+	"gameclient",
+	"gameserver",
+	"game"
+}
+
+function isGameInterface( modname )
+	return table.hasvalue( interfaces, modname )
+end
+
+function isPanel( modname )
+	local v = findModule( modname )
+	return typeof( v, "panel" ) or v == gui.panel
 end

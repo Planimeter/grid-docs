@@ -96,6 +96,10 @@ local function r_methods( section, methods, separator )
 end
 
 local function writeSection( section )
+	if ( docs.isGameInterface( section ) ) then
+		return
+	end
+
 	local md = {}
 	insert( md, r_header( section ) )
 	insert( md, r_purpose( section ) )
@@ -107,7 +111,9 @@ local function writeSection( section )
 			insert( md, r_methods( section, docs.getClassMethods( v ), "." ) )
 		end
 
-		insert( md, r_constructor( section ) )
+		if ( v[ section ] ) then
+			insert( md, r_constructor( section ) )
+		end
 
 		if ( #docs.getMethods( v ) > 0 ) then
 			insert( md, r_header2( "Methods" ) )
