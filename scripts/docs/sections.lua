@@ -71,20 +71,13 @@ local function r_header2( header )
 	return concat( md, "\r\n" )
 end
 
-local function isPanel( module )
-	local v = docs.findModule( module )
-	return typeof( v, "panel" ) or v == gui.panel
-end
-
 local function r_constructor( section )
 	local md = {}
 	insert( md, r_header2( "Constructor" ) )
-	local modname = isPanel( section ) and "gui" or section
-	insert(
-		md,
-		"* [`" .. ( modname == "gui" and "gui." or "" ) .. section .. "()`]" ..
-		"(" .. modname .. "." .. section .. ")"
-	)
+	local modname = docs.isPanel( section ) and "gui" or section
+	local signature = ( modname == "gui" and "gui." or "" ) .. section
+	local href = ( modname == "gui" and section or modname ) .. "." .. section
+	insert(	md, "* [`" .. signature .. "()`]" .. "(" .. href .. ")" )
 	insert( md, "" )
 	return concat( md, "\r\n" )
 end

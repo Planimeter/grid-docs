@@ -79,12 +79,26 @@ local function writeMethods( section, methods, separator )
 		local constructor = section == method
 		if ( constructor ) then
 			signature = section
+
+			if ( docs.isPanel( section ) ) then
+				signature = "gui." .. signature
+			end
 		end
 		insert( md, r_header( signature .. "()" ) )
 
+		-- Location
+		local v = docs.findModule( section )
+		insert( md, r_header2( "Source" ) )
+		local info = debug.getinfo( v[ method ], "S" )
+		local path = info.short_src
+		local line = info.linedefined
+		local href = "https://github.com/Planimeter/grid-sdk/blob/master/src/"
+		href = href .. path .. "#L" .. line
+		insert( md, "[`" .. path .. "`](" .. href .. ")" )
+		insert( md, "" )
+
 		-- Usage
 		insert( md, r_header2( "Usage" ) )
-		local v = docs.findModule( section )
 		require( "engine.shared.dblib" )
 		local params, isvararg = debug.getparameters( v[ method ] )
 		if ( params[ 1 ] == "self" ) then
@@ -111,8 +125,16 @@ local function writeMethods( section, methods, separator )
 			insert( md, r_header2( "Parameters" ) )
 			insert( md, r_table( parameters ) )
 		end
-
 		insert( md, "" )
+
+		-- Stub
+		-- local baseHref = "https://github.com/Planimeter/grid-sdk/wiki/"
+		insert(
+			md,
+			"_This article is a stub. You can help Planimeter by expanding it._"
+		)
+		insert( md, "" )
+
 		md = concat( md, "\r\n" )
 		filesystem.write( "docs/" .. section .. "." .. method .. ".md", md )
 	end

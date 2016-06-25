@@ -17,6 +17,7 @@ local string     = string
 local table      = table
 local tostring   = tostring
 local type       = type
+local typeof     = typeof
 local _G         = _G
 
 module( "docs" )
@@ -215,6 +216,11 @@ function getMethods( t )
 		end
 	end
 	return methods
+end
+
+function isPanel( modname )
+	local v = findModule( modname )
+	return typeof( v, "panel" ) or v == gui.panel
 end
 
 function getPanels()
