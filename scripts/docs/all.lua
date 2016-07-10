@@ -10,3 +10,4 @@ dofile( "scripts/docs/articles.lua" )
 
 dofile( "scripts/docs/concommand.lua" )
 dofile( "scripts/docs/convar.lua" )
+dofile( "scripts/docs/payload.lua" )

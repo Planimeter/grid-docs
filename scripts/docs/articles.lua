@@ -9,10 +9,9 @@ require( "scripts/docs" )
 filesystem.createDirectory( "docs" )
 
 local insert = table.insert
-local concat = table.concat
-local rep    = string.rep
-local find   = string.find
 local len    = string.len
+local rep    = string.rep
+local concat = table.concat
 
 local function r_header( header )
 	local md  = {}
