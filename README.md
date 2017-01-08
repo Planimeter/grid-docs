@@ -1,5 +1,5 @@
 # grid-docs
-API Documentation addon for generating Markdown articles
+Grid addon for generating API Documentation
 
 ## Install
 
