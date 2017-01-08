@@ -1,4 +1,4 @@
---========= Copyright © 2013-2015, Planimeter, All rights reserved. ==========--
+--============ Copyright © 2017, Planimeter, All rights reserved. ============--
 --
 -- Purpose: Grid API Documentation
 --
