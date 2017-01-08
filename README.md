@@ -2,18 +2,15 @@
 Grid addon for generating API documentation
 
 ## Install
-
 [Download](https://github.com/Planimeter/grid-docs/archive/master.zip)
 and extract to `%appdata%\LOVE\<game identity>\addons`
 
 ## Usage
-
 ```shell
 lua_dofile scripts/docs/all.lua
 ```
 
 ## License
-
 The MIT License
 
 Copyright (c) 2017 Planimeter. http://planimeter.org
