@@ -1,5 +1,5 @@
 # grid-docs
-Grid addon for generating API Documentation
+Grid addon for generating API documentation
 
 ## Install
 
