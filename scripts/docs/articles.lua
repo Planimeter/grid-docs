@@ -98,7 +98,7 @@ local function writeMethods( section, methods, separator )
 		local info = debug.getinfo( v[ method ], "S" )
 		local path = info.short_src
 		local line = info.linedefined
-		local href = "https://github.com/Planimeter/grid-sdk/blob/master/src/"
+		local href = "https://github.com/Planimeter/grid-sdk/blob/master/"
 		href = href .. path .. "#L" .. line
 		insert( md, "[`" .. path .. "`](" .. href .. ")" )
 		insert( md, "" )
