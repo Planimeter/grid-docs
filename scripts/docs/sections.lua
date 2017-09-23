@@ -57,10 +57,6 @@ local function r_purpose( section )
 		v = getFirstLuaFunction( v )
 	end
 
-	if ( v == nil ) then
-		return ""
-	end
-
 	local src = debug.getinfo( v, "S" ).short_src
 	src = love.filesystem.read( src )
 	local _, _, purpose = find( src, "-- Purpose:%s(.-\r\n)" )
