@@ -163,18 +163,13 @@ end
 function getInterfacesAndLibraries()
 	local packages = {}
 	local blacklist = {
-		"clientengine",
-		"serverengine",
-		"networkclient",
-		"networkserver",
-		-- "gameclient",
-		-- "gameserver",
-		"docs",
-		-- "game"
+		"engine",
+		"docs"
 	}
 	for k, v in pairs( _G ) do
 		if ( rawtype( v ) == "table" and
 		     v._M and
+			 not v.__type and
 		     not table.hasvalue( blacklist, k ) ) then
 			table.insert( packages, k )
 		end
@@ -189,7 +184,6 @@ function getInterfacesAndLibraries()
 
 	-- Lua 5.1.5 base library extensions
 	table.insert( packages, "math" )
-	table.insert( packages, "os" )
 	table.insert( packages, "string" )
 	table.insert( packages, "table" )
 
@@ -218,8 +212,10 @@ function getPanels()
 		"autoloader",
 		"console",
 		"debugoverlaypanel",
+		"framerate",
 		"handlers",
 		"init",
+		"netgraph",
 		"optionsmenu",
 		"scheme",
 		"testframe"
