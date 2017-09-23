@@ -4,7 +4,7 @@
 --
 --============================================================================--
 
-filesystem.createDirectory( "docs" )
+love.filesystem.createDirectory( "docs" )
 
 local markdown = {}
 table.insert( markdown, "List of console variables" )
@@ -15,7 +15,7 @@ table.insert( markdown, "| ---- | ------- | --- | --- | ----------- |" )
 
 local convars = {}
 
-for name in pairs( convar.convars ) do
+for name in pairs( convar._convars ) do
 	table.insert( convars, name )
 end
 
@@ -42,4 +42,4 @@ end
 
 table.insert( markdown, "" )
 markdown = table.concat( markdown, "\r\n" )
-filesystem.write( "docs/List_of_console_variables.md", markdown )
+love.filesystem.write( "docs/List_of_console_variables.md", markdown )

@@ -6,7 +6,7 @@
 
 require( "scripts/docs" )
 
-filesystem.createDirectory( "docs" )
+love.filesystem.createDirectory( "docs" )
 
 local insert = table.insert
 local len    = string.len
@@ -91,6 +91,10 @@ local function writeMethods( section, methods, separator )
 		-- Location
 		local v = docs.findModule( section )
 		insert( md, r_header2( "Source" ) )
+		if ( type( v[ method ] ) ~= "function" ) then
+			return
+		end
+
 		local info = debug.getinfo( v[ method ], "S" )
 		local path = info.short_src
 		local line = info.linedefined
@@ -144,7 +148,7 @@ local function writeMethods( section, methods, separator )
 		end
 
 		md = concat( md, "\r\n" )
-		filesystem.write( "docs/" .. filename .. ".md", md )
+		love.filesystem.write( "docs/" .. filename .. ".md", md )
 	end
 end
 

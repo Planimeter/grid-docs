@@ -6,7 +6,7 @@
 
 require( "scripts/docs" )
 
-filesystem.createDirectory( "docs" )
+love.filesystem.createDirectory( "docs" )
 
 local insert = table.insert
 local concat = table.concat
@@ -57,8 +57,12 @@ local function r_purpose( section )
 		v = getFirstLuaFunction( v )
 	end
 
+	if ( v == nil ) then
+		return ""
+	end
+
 	local src = debug.getinfo( v, "S" ).short_src
-	src = filesystem.read( src )
+	src = love.filesystem.read( src )
 	local _, _, purpose = find( src, "-- Purpose:%s(.-\r\n)" )
 	return purpose
 end
@@ -137,7 +141,7 @@ local function writeSection( section )
 	end
 
 	md = concat( md, "\r\n" )
-	filesystem.write( "docs/" .. section .. ".md", md )
+	love.filesystem.write( "docs/" .. section .. ".md", md )
 end
 
 local sections = {}

@@ -4,7 +4,7 @@
 --
 --============================================================================--
 
-filesystem.createDirectory( "docs" )
+love.filesystem.createDirectory( "docs" )
 
 local markdown = {}
 table.insert( markdown, "List of console commands" )
@@ -15,7 +15,7 @@ table.insert( markdown, "| ---- | ----------- |" )
 
 local concommands = {}
 
-for name in pairs( concommand.concommands ) do
+for name in pairs( concommand._concommands ) do
 	table.insert( concommands, name )
 end
 
@@ -34,4 +34,4 @@ end
 
 table.insert( markdown, "" )
 markdown = table.concat( markdown, "\r\n" )
-filesystem.write( "docs/List_of_console_commands.md", markdown )
+love.filesystem.write( "docs/List_of_console_commands.md", markdown )

@@ -6,9 +6,9 @@
 
 local debug      = debug
 local error      = error
-local filesystem = filesystem
 local gui        = gui
 local ipairs     = ipairs
+local love       = love
 local pairs      = pairs
 local rawtype    = rawtype
 local require    = require
@@ -181,11 +181,11 @@ function getInterfacesAndLibraries()
 	end
 
 	-- network interface
-	table.insert( packages, "network" )
+	-- table.insert( packages, "network" )
 
 	-- socket interfaces
-	table.insert( packages, "http" )
-	table.insert( packages, "https" )
+	-- table.insert( packages, "http" )
+	-- table.insert( packages, "https" )
 
 	-- Lua 5.1.5 base library extensions
 	table.insert( packages, "math" )
@@ -215,14 +215,16 @@ end
 function getPanels()
 	local panels = {}
 	local blacklist = {
+		"autoloader",
 		"console",
 		"debugoverlaypanel",
+		"handlers",
 		"init",
 		"optionsmenu",
 		"scheme",
 		"testframe"
 	}
-	local files = filesystem.getDirectoryItems( "engine/client/gui" )
+	local files = love.filesystem.getDirectoryItems( "engine/client/gui" )
 	for _, panel in ipairs( files ) do
 		local extension = "%." .. ( string.fileextension( panel ) or "" )
 		panel = string.gsub( panel, extension, "" )

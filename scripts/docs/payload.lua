@@ -4,7 +4,7 @@
 --
 --============================================================================--
 
-filesystem.createDirectory( "docs" )
+love.filesystem.createDirectory( "docs" )
 
 local insert = table.insert
 local sort   = table.sort
@@ -88,4 +88,4 @@ for _, name in ipairs( payloads ) do
 end
 
 md = concat( md, "\r\n" )
-filesystem.write( "docs/List_of_payloads.md", md )
+love.filesystem.write( "docs/List_of_payloads.md", md )

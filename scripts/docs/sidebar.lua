@@ -6,7 +6,7 @@
 
 require( "scripts/docs" )
 
-filesystem.createDirectory( "docs" )
+love.filesystem.createDirectory( "docs" )
 
 local function renderSidebarSection( header, list )
 	local markdown = {}
@@ -45,4 +45,4 @@ table.insert( markdown, renderSidebarSection(
 ) )
 
 markdown = table.concat( markdown, "\r\n" )
-filesystem.write( "docs/_Sidebar.md", markdown )
+love.filesystem.write( "docs/_Sidebar.md", markdown )
