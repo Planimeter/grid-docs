@@ -164,6 +164,7 @@ end
 function getInterfacesAndLibraries()
 	local packages = {}
 	local blacklist = {
+		"engine",
 		"docs"
 	}
 	for k, v in pairs( _G ) do
@@ -218,7 +219,8 @@ function getPanels()
 		"netgraph",
 		"optionsmenu",
 		"scheme",
-		"testframe"
+		"testframe",
+		"watch"
 	}
 	local files = love.filesystem.getDirectoryItems( "engine/client/gui" )
 	for _, panel in ipairs( files ) do
