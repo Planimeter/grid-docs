@@ -10,9 +10,10 @@ love.filesystem.createDirectory( "docs" )
 
 local insert = table.insert
 local concat = table.concat
-local rep    = string.rep
-local find   = string.find
 local len    = string.len
+local find   = string.find
+local gsub   = string.gsub
+local rep    = string.rep
 
 local function r_header( header )
 	local md  = {}
@@ -20,6 +21,11 @@ local function r_header( header )
 	local v   = docs.findModule( header )
 	if ( v.__base ) then
 		local base = v.__base
+
+		if ( find( base, "gui." ) ) then
+			base = gsub( base, "gui.", "" )
+		end
+
 		header = header .. " " ..
 		"<small>" ..
 			"_Inherits from [`" .. base .. "`](" .. base .. ")_" ..
