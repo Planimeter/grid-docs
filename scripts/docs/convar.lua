@@ -35,7 +35,7 @@ for _, name in ipairs( convars ) do
 			convar:getDefault()       .. " | "..
 			tocell( convar:getMin() ) .. " | " ..
 			tocell( convar:getMax() ) .. " | " ..
-			convar:getHelpString()    ..
+			( convar:getHelpString() or "" ) ..
 		" |"
 	)
 end
