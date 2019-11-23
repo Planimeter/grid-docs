@@ -1,4 +1,4 @@
---============ Copyright © 2017, Planimeter, All rights reserved. ============--
+--============ Copyright © 2019, Planimeter, All rights reserved. ============--
 --
 -- Purpose: Dump sidebar
 --
