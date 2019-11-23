@@ -96,7 +96,7 @@ local function r_methods( section, methods, separator )
 end
 
 local function writeSection( section )
-	if ( docs.isGameInterface( section ) ) then
+	if ( section == "game" ) then
 		return
 	end
 

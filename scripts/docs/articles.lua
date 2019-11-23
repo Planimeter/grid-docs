@@ -75,7 +75,7 @@ local function writeMethods( section, methods, separator )
 		-- Header
 		local md = {}
 		local signature = section .. separator .. method
-		if ( docs.isGameInterface( section ) ) then
+		if ( section == "game" ) then
 			signature = method
 		end
 		local constructor = section == method
@@ -109,7 +109,7 @@ local function writeMethods( section, methods, separator )
 		if ( params[ 1 ] == "self" ) then
 			table.remove( params, 1 )
 		end
-		if ( not docs.isGameInterface( section ) ) then
+		if ( section ~= "game" ) then
 			insert( md, r_header2( "Usage" ) )
 			local args = ( #params > 0 and "( " ..
 				concat( params, ", " ) .. ( isvararg and ", ..." or "" ) ..
@@ -143,7 +143,7 @@ local function writeMethods( section, methods, separator )
 		insert( md, "" )
 
 		local filename = section .. "." .. method
-		if ( docs.isGameInterface( section ) ) then
+		if ( section == "game" ) then
 			filename = method
 		end
 

@@ -141,6 +141,7 @@ function getClasses()
 		     v.__type and
 		     not string.find( k, "g_" ) and
 		     not string.find( k, "localhost_" ) and
+		     not string.find( k, "prop_" ) and
 		     not table.hasvalue( blacklist, k ) ) then
 			table.insert( classes, k )
 		end
@@ -163,7 +164,6 @@ end
 function getInterfacesAndLibraries()
 	local packages = {}
 	local blacklist = {
-		"engine",
 		"docs"
 	}
 	for k, v in pairs( _G ) do
@@ -237,16 +237,6 @@ function isClassMethod( f )
 	require( "engine.shared.dblib" )
 	local parameters = debug.getparameters( f )
 	return not parameters[ 1 ] or parameters[ 1 ] ~= "self"
-end
-
-local interfaces = {
-	"gameclient",
-	"gameserver",
-	"game"
-}
-
-function isGameInterface( modname )
-	return table.hasvalue( interfaces, modname )
 end
 
 function isPanel( modname )
