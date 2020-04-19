@@ -1,4 +1,4 @@
---============ Copyright © 2019, Planimeter, All rights reserved. ============--
+--============ Copyright © 2020, Planimeter, All rights reserved. ============--
 --
 -- Purpose: API Documentation interface
 --
@@ -21,6 +21,8 @@ local typeof     = typeof
 local _G         = _G
 
 module( "docs" )
+
+_VERSION = "v9.0.1"
 
 callbacks = {
 	"keypressed",

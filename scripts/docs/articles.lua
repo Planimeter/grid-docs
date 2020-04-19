@@ -1,4 +1,4 @@
---============ Copyright © 2019, Planimeter, All rights reserved. ============--
+--============ Copyright © 2020, Planimeter, All rights reserved. ============--
 --
 -- Purpose: Dump articles
 --
@@ -98,7 +98,9 @@ local function writeMethods( section, methods, separator )
 		local info = debug.getinfo( v[ method ], "S" )
 		local path = info.short_src
 		local line = info.linedefined
-		local href = "https://github.com/Planimeter/grid-sdk/blob/master/"
+		local tag  = docs._VERSION
+		local href = "https://github.com/Planimeter/grid-sdk/blob/"
+		href = href .. tag  .. "/"
 		href = href .. path .. "#L" .. line
 		insert( md, "[`" .. path .. "`](" .. href .. ")" )
 		insert( md, "" )

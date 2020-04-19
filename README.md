@@ -13,7 +13,7 @@ lua_dofile scripts/docs/all.lua
 ## License
 MIT License
 
-Copyright (c) 2019 Planimeter
+Copyright (c) 2020 Planimeter
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
